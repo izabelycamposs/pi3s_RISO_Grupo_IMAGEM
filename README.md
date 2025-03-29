@@ -13,5 +13,5 @@ Grupo IMAGEM:
   
   Luíz Antônio de Freitas - lafreitas2@yahoo.com.br
 
-  Rafael Botezelli - rafael.botezelli@hotmail.com 
+  Rafael Botezelli - rafaelbotezelli@gmail.com 
 
