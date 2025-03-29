@@ -1,7 +1,9 @@
 # pi3s_RISO_Grupo_IMAGEM
 Este repositório destina-se ao desenvolvimento do Projeto RISO, pelo Grupo IMAGEM, relativo ao PI do 3º semestre do curso de DSM da FATEC/CPS/Arraras.
 
-Grupo IMAGEM:
+# Grupo IMAGEM
+
+Os alunos desenvolvedores que integram o grupo IMAGEM, responsáveis pelo desenvolvimento do Projeto RISO, no contexto do Projeto Interdisciplinar do 3º semestre do curso de Desenvolvimento de Software Multiplataforma da Fatec de Araras, que integra o Centro Paula Souza do Estado de São Paulo, são:
   
   Casemiro Seneme - casemiro.seneme@fatec.sp.gov.br
   
