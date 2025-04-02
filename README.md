@@ -17,3 +17,5 @@ Os alunos desenvolvedores que integram o grupo IMAGEM, responsáveis pelo desenv
 
   Rafael Botezelli - rafaelbotezelli@gmail.com 
 
+  Vitor Eduardo de Barros Marciano
+  vitor.marciano001@gmail.com
