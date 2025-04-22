@@ -1,0 +1,15 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+"Admin" as Admin
+    Admin --> (Cadastrar Fluxo de Caixa)
+    Admin --> (Alterar dados do Fluxo de Caixa)
+    Admin --> (Visualizar Fluxo de Caixa)
+    Admin --> (Cadastro de departamento)
+    Admin --> (Alterar dados do departamento)
+    Admin --> (Visualizar departamentos)
+    Admin --> (Cadastro de Funcionario)
+    Admin --> (Alterar dados do Funcionario)
+    Admin --> (Visualizar Funcionario)
+
+@enduml

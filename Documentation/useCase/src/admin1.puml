@@ -1,0 +1,18 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+"Admin" as Admin
+
+    Admin --> (Login)
+    Admin --> (Logout)
+    Admin --> (Cadastrar Cliente)
+    Admin --> (Alterar dados do cliente)
+    Admin --> (Visualizar clientes)
+    Admin --> (Cadastro de Veículo)
+    Admin --> (Alterar dados do veículo)
+    Admin --> (Visualizar veículos)
+    Admin --> (Cadastro de Serviço)
+    Admin --> (Alterar dados do serviço)
+    Admin --> (Visualizar serviços)
+
+@enduml
