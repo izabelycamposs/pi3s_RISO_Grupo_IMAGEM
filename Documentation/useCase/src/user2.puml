@@ -1,0 +1,18 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+"Funcionario" as User
+    User -->  (Visualizar estoque)
+    User -->  (Alterar dados do estoque)
+    User -->  (Editar Estoque)
+    User -->  (Visualizar vendas)
+    User -->  (Alterar dados da venda)
+    User -->  (Cadastrar vendas)
+    User -->  (Alterar dados da Ordem de Serviço)
+    User -->  (Visualizar Ordem de Serviço)
+    User -->  (Cadastrar Ordem de Serviço)
+    User -->  (Alterar dados do Fluxo de Caixa)
+    User -->  (Visualizar Fluxo de Caixa)
+    User -->  (Cadastrar Fluxo de Caixa)
+    User -->  (Visualizar departamentos)
+@enduml

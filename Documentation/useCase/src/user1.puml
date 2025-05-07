@@ -1,0 +1,17 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+"Funcionario" as User
+    User --> (Login)
+    User --> (Logout)
+    User --> (Cadastrar Cliente)
+    User --> (Visualizar cliente)
+    User --> (Alterar dados do cliente)
+    User --> (Cadastro de Veículo)
+    User --> (Visualizar veículos)
+    User --> (Alterar dados do veículo)
+    User -->  (Cadastro de Serviço)
+    User -->  (Visualizar serviços)
+    User -->  (Alterar dados do serviço)
+
+@enduml

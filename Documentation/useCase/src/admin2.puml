@@ -1,0 +1,15 @@
+@startuml
+skinparam actorStyle awesome
+left to right direction
+"Admin" as Admin
+    Admin --> (Visualizar estoque)
+    Admin --> (Alterar dados do estoque)
+    Admin --> (Editar Estoque)
+    Admin --> (Cadastrar vendas)
+    Admin --> (Alterar dados da venda)
+    Admin --> (Visualizar vendas)
+    Admin --> (Cadastrar Ordem de Serviço)
+    Admin --> (Alterar dados da Ordem de Serviço)
+    Admin --> (Visualizar Ordem de Serviço)
+
+@enduml
