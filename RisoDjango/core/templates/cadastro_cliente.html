@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+     <!---Bootstraps--->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de Clientes</title>
+    <!----css login---->
+    <link rel="stylesheet" href="cadastro_cliente.css">
+</head>
+<body>
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="col-md-6 d-flex align-items-center">
+          <div class="cadastro_cliente-container w-100">
+            <h2 class="text-center mb-4">Cadastro de Clientes</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label">Nome/Razão Social</label>
+                    <input name="nome" type="text" class="form-control rounded-pill" placeholder="Digite o nome da Empresa ou do Cliente aqui">
+                </div>
+            
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label class="form-label">CPF/CNPJ</label>
+                        <input name="documento" type="text" class="form-control rounded-pill" placeholder="Exemplo: 123.456.789-00">
+                    </div>
+                
+                    <div class="form-group col-md-6">
+                        <label class="form-label">CEP</label>
+                        <input name="cep" type="text" class="form-control rounded-pill" placeholder="CEP do Cliente">
+                    </div>
+                </div>
+            
+                <div class="mb-3">
+                    <label class="form-label">Email</label>
+                    <input name="email" type="text" class="form-control rounded-pill" placeholder="cliente@cliente.com">
+                </div>
+            
+                <div class="mb-3">
+                    <label class="form-label">Telefone</label>
+                    <input name="telefone" type="text" class="form-control rounded-pill" placeholder="(19) 99999-9999">
+                </div>
+            
+                <div class="mb-3">
+                    <label class="form-label">Telefone Residencial</label>
+                    <input name="telefone_residencial" type="text" class="form-control rounded-pill" placeholder="(19) 12345-6789">
+                </div>
+            
+                <div class="text-center mb-3">
+                    <button type="submit" class="btn btn-primary rounded-pill btn-dark btn-lg btn-block">Criar Cadastro do Cliente</button>
+                </div>
+            
+                <div class="text-center mb-3">
+                    <a href="home.html" class="btn btn-secondary btn-lg btn-block">Cancelar Cadastro</a>
+                </div>
+            </form>
+            
+        </div>
+        {% if success %}
+        <div class="alert alert-success" role="alert">
+            Cliente cadastrado com sucesso!
+        </div>
+         
+        {% endif %}
+
+    </div>
+
+</body>
+</html>
