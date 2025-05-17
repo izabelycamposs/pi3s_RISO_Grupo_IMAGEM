@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head><title>Editar Pneu</title></head>
+<body>
+  <h1>Editar Pneu</h1>
+  <form method="POST">
+    Marca: <input type="text" name="marca" value="{{ pneu['marca'] }}"><br>
+    Modelo: <input type="text" name="modelo" value="{{ pneu['modelo'] }}"><br>
+    Tamanho: <input type="text" name="tamanho" value="{{ pneu['tamanho'] }}"><br>
+    Preço: <input type="number" step="0.01" name="preco" value="{{ pneu['preco'] }}"><br>
+    <input type="submit" value="Salvar">
+  </form>
+</body>
+</html>

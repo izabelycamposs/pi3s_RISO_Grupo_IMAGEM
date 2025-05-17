@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Imprimir Lista de Pneus</title>
+  <style>
+    body { font-family: Arial, sans-serif; }
+    h1 { text-align: center; }
+    table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+    th, td { border: 1px solid black; padding: 8px; text-align: center; }
+    @media print {
+      button { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Lista de Pneus</h1>
+  <button onclick="window.print()">Imprimir</button>
+  <table>
+    <tr>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Tamanho</th>
+      <th>Preço</th>
+    </tr>
+    {% for pneu in pneus %}
+    <tr>
+      <td>{{ pneu['marca'] }}</td>
+      <td>{{ pneu['modelo'] }}</td>
+      <td>{{ pneu['tamanho'] }}</td>
+      <td>R$ {{ pneu['preco'] }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+</body>
+</html>

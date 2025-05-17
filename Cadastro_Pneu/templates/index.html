@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>Lista de Pneus</title></head>
+<body>
+  <h1>Lista de Pneus</h1>
+
+  <form method="GET" action="/buscar">
+    <input type="text" name="termo" placeholder="Buscar por marca, modelo ou tamanho" value="{{ termo or '' }}">
+    <input type="submit" value="Buscar">
+  </form>
+
+  <a href="/cadastrar">Cadastrar Novo Pneu</a> |
+  <a href="/imprimir" target="_blank">Imprimir Lista</a>
+
+  <ul>
+    {% for pneu in pneus %}
+      <li>
+        {{ pneu['marca'] }} - {{ pneu['modelo'] }} - {{ pneu['tamanho'] }} - R$ {{ pneu['preco'] }}
+        [<a href="{{ url_for('editar', id=pneu['_id']) }}">Editar</a>] 
+        [<a href="{{ url_for('apagar', id=pneu['_id']) }}" onclick="return confirm('Deseja apagar?')">Apagar</a>]
+      </li>
+    {% endfor %}
+  </ul>
+</body>
+</html>
