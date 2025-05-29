@@ -8,6 +8,28 @@
     
     <link rel="stylesheet" type="text/css" href="login.css">
 </head>
+<style>
+  .container {
+  height: 100vh;
+}
+body {
+  background-color: #000;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-container {
+  background-color: #cfcfcf;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #000;
+}
+.form-control::placeholder {
+  color: #aaa;
+}
+</style>
 
 <html>
 <body>
@@ -18,11 +40,11 @@
               <form>
                 <div class="mb-3">
                   <label class="form-label">Usuário</label>
-                  <input type="text" class="form-control rounded-pill" placeholder="Digite seu usuário aqui">
+                  <input type="text" name='username' class="form-control rounded-pill" placeholder="Digite seu usuário aqui">
                 </div>
                 <div class="mb-3">
                   <label class="form-label">Senha</label>
-                  <input type="password" class="form-control rounded-pill" placeholder="Digite sua senha aqui">
+                  <input type="password" name='password' class="form-control rounded-pill" placeholder="Digite sua senha aqui">
                 </div>
                 <div class="mb-3 text-center">
                   <small>Não lembra a senha?<br><a href="esqueci_senha.html">Esqueci minha senha</a></small> <!---levar usuario para tela de recuperar senha-->

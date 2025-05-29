@@ -25,6 +25,15 @@ def auth_user(username, password):
         return True
     return False
 
+def auth_session(session):
+    if (not session.get('session', False) or
+        not session.get('username', None)):
+        return False
+    if session.get('session') != 'active':
+        return False
+    return True
+    
+
 def get_user(username):
     db = get_db()
     user = db["users"].find_one({"username": username})
