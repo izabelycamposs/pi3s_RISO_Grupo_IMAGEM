@@ -1,23 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
   const sidebar = document.getElementById('sidebar');
   const toggleBtn = document.getElementById('toggleSidebar');
+  const labels = document.querySelectorAll('.sidebar-label');
+  const title = document.getElementById('sidebar-title');
 
   const setCollapsed = (collapsed) => {
-    sidebar.dataset.collapsed = collapsed;
+    const isCollapsed = collapsed === 'true';
+
+    // Salvar em cookie
     document.cookie = `sidebar_collapsed=${collapsed}; path=/; max-age=31536000`;
-    sidebar.style.width = collapsed === "true" ? "4rem" : "16rem";
-    document.querySelectorAll('.sidebar-label, .sidebar-title').forEach(el => {
-      el.style.display = collapsed === "true" ? "none" : "block";
+
+    // Aplicar largura
+    sidebar.style.width = isCollapsed ? '5.5rem' : '16rem';
+
+    // Mostrar/ocultar textos
+    labels.forEach(label => {
+      label.classList.toggle('hidden', isCollapsed);
     });
+
+    if (title) {
+      title.classList.toggle('hidden', isCollapsed);
+    }
+
+    sidebar.dataset.collapsed = collapsed;
   };
 
-  // Load initial state
-  const cookieMatch = document.cookie.match(/sidebar_collapsed=(true|false)/);
-  const initialState = cookieMatch ? cookieMatch[1] : "false";
-  setCollapsed(initialState);
+  // Pega o estado salvo no cookie
+  const getCookie = (name) => {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    return parts.length === 2 ? parts.pop().split(';').shift() : null;
+  };
+
+  const initial = getCookie('sidebar_collapsed') || 'false';
+  setCollapsed(initial);
 
   toggleBtn?.addEventListener('click', () => {
-    const current = sidebar.dataset.collapsed === "true";
-    setCollapsed(current ? "false" : "true");
+    const isCollapsed = sidebar.dataset.collapsed === 'true';
+    setCollapsed(!isCollapsed + '');
   });
 });
