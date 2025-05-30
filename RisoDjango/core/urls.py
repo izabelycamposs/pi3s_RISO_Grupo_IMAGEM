@@ -1,12 +1,12 @@
 from django.urls import path
-from . import views
+from core.views import cadastro_cliente, login, logout, listar_clientes, editar_clientes, index, dashboard
 
 urlpatterns = [
-    path('cadastro-cliente/', views.cadastro_cliente, name='cadastro_cliente'),
-    path('login/', views.login, name='login'),
-    path('logout/', views.logout, name='logout'),
-    path('listar-clientes/', views.listar_clientes, name='listar_clientes'),
-    path('editar-clientes/<int:client_id>/', views.editar_clientes, name='editar_clientes'),
-    path('', views.index, name='index'),
-    path('dashboard/', views.dashboard, name='dashboard'),
+    path('cadastro-cliente/', cadastro_cliente, name='cadastro_cliente'),
+    path('login/', login, name='login'),
+    path('logout/', logout, name='logout'),
+    path('listar-clientes/', listar_clientes, name='listar_clientes'),
+    path('editar-clientes/<int:client_id>/', editar_clientes, name='editar_clientes'),
+    path('', index, name='index'),
+    path('dashboard/', dashboard, name='dashboard'),
 ]

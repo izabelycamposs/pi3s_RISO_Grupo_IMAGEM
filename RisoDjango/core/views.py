@@ -20,7 +20,7 @@ def login(request):
             return redirect("dashboard")
         context = {'acesso_negado': True}
         return render(request, 'login.html', {'form':form})
-    return render(request, 'login.html', {'form':LoginForm()})
+    return render(request, 'login.html', {'form': LoginForm()})
 
         
 def logout(request):
