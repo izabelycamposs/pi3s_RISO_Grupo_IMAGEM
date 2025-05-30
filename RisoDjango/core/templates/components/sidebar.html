@@ -1,0 +1,55 @@
+<aside id="sidebar" class="fixed inset-y-0 left-0 transition-all duration-300 ease-in-out bg-slate-900 text-white overflow-hidden"
+       style="width: 16rem;" data-collapsed="{{ collapsed|default:'false' }}">
+  <div class="flex items-center justify-between h-16 px-4 bg-slate-800">
+    <div class="flex items-center space-x-3">
+      <div class="bg-orange-500 p-2 rounded-lg">
+        <i data-lucide="car" class="w-6 h-6 text-white"></i>
+      </div>
+      <div class="sidebar-title transition-opacity duration-200" id="sidebar-title">
+        <h1 class="text-lg font-bold whitespace-nowrap">Riso Recuperadora</h1>
+        <p class="text-xs text-slate-300 whitespace-nowrap">Sistema de Gestão</p>
+      </div>
+    </div>
+    {% comment %} TODO: Arrumar o display do botão de collapsable {% endcomment %}
+    <button id="toggleSidebar" class="text-white ml-auto">
+      <i data-lucide="menu" class="w-5 h-5"></i>
+    </button>
+  </div>
+
+  <nav class="mt-6 px-2 space-y-2">
+    {% with request.resolver_match.url_name as active %}
+    {% comment %} TODO: Arrumar para que quando colapasable apareça os icones das categorias e o botão de colapasable {% endcomment %}
+      <a href="{% url 'dashboard' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 {% if active == 'dashboard' %}bg-orange-500 text-white{% else %}text-slate-300{% endif %}">
+        <i data-lucide="bar-chart-3" class="w-5 h-5 mr-3"></i>
+        <span class="sidebar-label">Dashboard</span>
+      </a>
+
+      <a href="{% url 'listar_clientes' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 {% if active == 'listar_clientes' %}bg-orange-500 text-white{% else %}text-slate-300{% endif %}">
+        <i data-lucide="users" class="w-5 h-5 mr-3"></i>
+        <span class="sidebar-label">Clientes</span>
+
+      </a>
+      <a href="{% url 'listar_usuarios' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 {% if active == 'listar_usuarios' %}bg-orange-500 text-white{% else %}text-slate-300{% endif %}">
+      <i data-lucide="shield" class="w-5 h-5 mr-3"></i>
+      <span class="sidebar-label">Usuários do Sistema</span>
+    </a>
+
+    <a href="{% url 'listar_veiculos' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 {% if active == 'listar_veiculos' %}bg-orange-500 text-white{% else %}text-slate-300{% endif %}">
+      <i data-lucide="car" class="w-5 h-5 mr-3"></i>
+      <span class="sidebar-label">Carros</span>
+    </a>
+
+    <a href="{% url 'listar_servicos' %}" class="flex items-center px-4 py-3 rounded-lg hover:bg-slate-800 {% if active == 'listar_servicos' %}bg-orange-500 text-white{% else %}text-slate-300{% endif %}">
+      <i data-lucide="wrench" class="w-5 h-5 mr-3"></i>
+      <span class="sidebar-label">Ordens de Serviço</span>
+    </a>
+    {% endwith %}
+  </nav>
+
+  <div class="absolute bottom-4 left-4 right-4">
+    <a href="{% url 'logout' %}" class="flex items-center px-4 py-2 hover:bg-slate-800 text-slate-300 rounded">
+      <i data-lucide="log-out" class="h-5 w-5 mr-3"></i>
+      <span class="sidebar-label">Sair</span>
+    </a>
+  </div>
+</aside>
