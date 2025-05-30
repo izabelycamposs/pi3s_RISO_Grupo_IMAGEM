@@ -11,23 +11,27 @@ def index(request):
     return render(request, 'index.html')
 
 def login(request):
-    if request.method == 'POST':
+    if request.user.id is not None:
+        return redirect("dashboard")
+    if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
-            user = form.user
-            auth_login(request, user)
-            return redirect('index')
-        else:
-            return render(request, 'login.html', {'form': form, 'error': True})
-    else:
-        form = LoginForm()
-    return render(request, 'login.html', {'form': form})
+            auth_login(request, form.user)
+            return redirect("dashboard")
+        context = {'acesso_negado': True}
+        return render(request, 'login.html', {'form':form})
+    return render(request, 'login.html', {'form':LoginForm()})
 
+        
 def logout(request):
-    if request.method == 'POST':
-        user_services.logout_user()
-        return redirect('index')
-    return render(request, 'logout.html')
+    if request.method == "POST":
+        auth_logout(request)
+        return render(request, 'logout.html')
+    return redirect("home")
+
+@login_required
+def dashboard(request):
+    return render(request, 'dashboard.html')
 
 @login_required
 def cadastro_cliente(request):
