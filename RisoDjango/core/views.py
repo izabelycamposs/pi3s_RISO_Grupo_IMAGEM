@@ -11,6 +11,8 @@ def index(request):
     return render(request, 'index.html')
 
 def login(request):
+    if request.user.id is not None:
+        return redirect("dashboard")
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
@@ -52,12 +54,12 @@ def cadastro_cliente(request):
 def listar_clientes(request):
     if request.method == 'GET':
         clients = client_services.list_clients()
-        return render(request, 'lista_clientes.html', context={'clients': clients})
+        return render(request, 'listar_clientes.html', context={'clients': clients})
     if request.method == 'POST':
         client_id = request.POST.get('client_id')
         client_services.delete_client(client_id)
-        return redirect('lista_clientes')
-    return render(request, 'lista_clientes.html')
+        return redirect('listar_clientes')
+    return render(request, 'listar_clientes.html')
 
 @login_required
 def editar_clientes(request, client_id):
@@ -74,13 +76,12 @@ def editar_clientes(request, client_id):
             "telefone_residencial": request.POST.get('telefone_residencial'),
         }
         client_services.update_client(client_id, data)
-        return redirect('lista_clientes')
+        return redirect('listar_clientes')
     return render(request, 'edit_client.html')
 
 @login_required
 def apagar_client(request, client_id):
     if request.method == 'POST':
         client_services.delete_client(client_id)
-        return redirect('lista_clientes')
+        return redirect('listar_clientes')
     return render(request, 'apagar_client.html', context={'client_id': client_id})
-
