@@ -37,16 +37,20 @@ def dashboard(request):
 @login_required
 def cadastro_cliente(request):
     if request.method == 'POST':
-        data = {
-            "nome": request.POST.get('nome'),
-            "documento": request.POST.get('documento'),
-            "cep": request.POST.get('cep'),
-            "email": request.POST.get('email'),
-            "telefone": request.POST.get('telefone'),
-            "telefone_residencial": request.POST.get('telefone_residencial'),
-        }
-        client_services.create_client(data)
-        return render(request, 'cadastro_cliente.html', context={'success': True, 'data': data})
+        try:
+            data = {
+                "nome": request.POST.get('nome'),
+                "documento": request.POST.get('documento'),
+                "cep": request.POST.get('cep'),
+                "email": request.POST.get('email'),
+                "telefone": request.POST.get('telefone'),
+                "telefone_residencial": request.POST.get('telefone_residencial'),
+            }
+            client_services.create_client(data)
+            return redirect('listar_clientes')
+        except Exception as e:
+            print(f"Error creating client: {e}")
+            return render(request, 'cadastro_cliente.html', context={'success': False, 'error': str(e), 'data': data})
     if request.method == 'GET':
         return render(request, 'cadastro_cliente.html', context={'success': False})
 

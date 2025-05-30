@@ -1,72 +1,107 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-     <!---Bootstraps--->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Clientes</title>
-    <!----css login---->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="cadastro_cliente.css">
+    <style>
+        .container {
+            height: 120vh;
+        }
+
+        body {
+            background-color: #000;
+            height: 100%;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cadastro_cliente-container {
+            background-color: #949494;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #000;
+            width: 100%;
+        }
+
+        .form-control::placeholder {
+            color: #aaa;
+        }
+
+        .error-box {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-    <div class="container d-flex justify-content-center align-items-center">
-        <div class="col-md-6 d-flex align-items-center">
-          <div class="cadastro_cliente-container w-100">
+<div class="container d-flex justify-content-center align-items-center">
+    <div class="col-md-6 d-flex align-items-center">
+        <div class="cadastro_cliente-container w-100">
             <h2 class="text-center mb-4">Cadastro de Clientes</h2>
+
+            <!-- Área de erro -->
+            <div class="error-box">
+                {% if error %}
+                    <div class="alert alert-danger text-center font-weight-bold" role="alert">
+                        {{ error }}
+                    </div>
+                {% else %}
+                    <div style="height: 48px;"></div> <!-- espaço reservado -->
+                {% endif %}
+            </div>
+
             <form method="POST">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label class="form-label">Nome/Razão Social</label>
-                    <input name="nome" type="text" class="form-control rounded-pill" placeholder="Digite o nome da Empresa ou do Cliente aqui">
+                    <input  value="{{ data.nome | default:''}}" name="nome" type="text" class="form-control rounded-pill" placeholder="Digite o nome da Empresa ou do Cliente aqui">
                 </div>
-            
+
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label class="form-label">CPF/CNPJ</label>
-                        <input name="documento" type="text" class="form-control rounded-pill" placeholder="Exemplo: 123.456.789-00">
+                        <input  value="{{ data.documento | default:''}}" name="documento" type="text" class="form-control rounded-pill" placeholder="Exemplo: 123.456.789-00" oninput="formatDocument(this)">
                     </div>
-                
+
                     <div class="form-group col-md-6">
                         <label class="form-label">CEP</label>
-                        <input name="cep" type="text" class="form-control rounded-pill" placeholder="CEP do Cliente">
+                        <input  value="{{ data.cep | default:''}}" name="cep" type="text" class="form-control rounded-pill" placeholder="CEP do Cliente" oninput="formatCEP(this)">
                     </div>
                 </div>
-            
+
                 <div class="mb-3">
                     <label class="form-label">Email</label>
-                    <input name="email" type="text" class="form-control rounded-pill" placeholder="cliente@cliente.com">
+                    <input  value="{{ data.email | default:''}}" name="email" type="text" class="form-control rounded-pill" placeholder="cliente@cliente.com">
                 </div>
-            
+
                 <div class="mb-3">
                     <label class="form-label">Telefone</label>
-                    <input name="telefone" type="text" class="form-control rounded-pill" placeholder="(19) 99999-9999">
+                    <input  value="{{ data.telefone | default:''}}" name="telefone" type="text" class="form-control rounded-pill" placeholder="(19) 99999-9999" oninput="formatPhone(this)">
                 </div>
-            
+
                 <div class="mb-3">
                     <label class="form-label">Telefone Residencial</label>
-                    <input name="telefone_residencial" type="text" class="form-control rounded-pill" placeholder="(19) 12345-6789">
+                    <input  value="{{ data.telefone_residencial | default:''}}" name="telefone_residencial" type="text" class="form-control rounded-pill" placeholder="(19) 12345-6789" oninput="formatPhone(this)">
                 </div>
-            
+
                 <div class="text-center mb-3">
-                    <button type="submit" class="btn btn-primary rounded-pill btn-dark btn-lg btn-block">Criar Cadastro do Cliente</button>
+                    <button type="submit" class="btn btn-dark rounded-pill btn-lg btn-block">Criar Cadastro do Cliente</button>
                 </div>
-            
+
                 <div class="text-center mb-3">
                     <a href="{% url 'index' %}" class="btn btn-secondary btn-lg btn-block">Cancelar Cadastro</a>
                 </div>
             </form>
-            
         </div>
-        {% if success %}
-        <div class="alert alert-success" role="alert">
-            Cliente cadastrado com sucesso!
-        </div>
-         
-        {% endif %}
-
     </div>
-
+</div>
 </body>
+<script src="{% static '/utils/InputMaskScript.js' %}"></script>
 </html>
