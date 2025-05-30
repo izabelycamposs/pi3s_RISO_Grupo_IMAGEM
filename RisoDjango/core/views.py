@@ -23,12 +23,13 @@ def login(request):
 
     return render(request, "login.html", {"form": form})
 
-        
+
 def logout(request):
     if request.method == "POST":
         auth_logout(request)
-        return render(request, 'logout.html')
-    return redirect("index")
+        return redirect("index")
+    return render(request,"logout.html")
+    
 
 @login_required
 def dashboard(request):
