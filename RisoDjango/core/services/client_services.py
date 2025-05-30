@@ -8,7 +8,7 @@ def get_db():
 
 def replace_special_characters(text):
     replacements = {
-       '.': '', '-': '', '(': '', ')': '', ' ': "",
+       '.': '', '-': '', '(': '', ')': '', ' ': "", "/": "",
     }
     for old, new in replacements.items():
         text = text.replace(old, new)
