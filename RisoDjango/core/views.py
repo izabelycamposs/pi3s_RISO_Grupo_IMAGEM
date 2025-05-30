@@ -27,7 +27,7 @@ def logout(request):
     if request.method == "POST":
         auth_logout(request)
         return render(request, 'logout.html')
-    return redirect("home")
+    return redirect("inde")
 
 @login_required
 def dashboard(request):
