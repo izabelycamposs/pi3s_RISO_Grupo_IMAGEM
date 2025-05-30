@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import authenticate
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 class LoginForm(forms.Form):
     username = forms.CharField(
@@ -30,13 +31,19 @@ class LoginForm(forms.Form):
         password = cleaned_data.get("password")
 
         if username and password:
-            user = authenticate(username=username, password=password)
+            try:
+                user = User.objects.get(username=username)
+            except User.DoesNotExist:
+                raise ValidationError("Funcionário com esse nome de usuario não encontrado.")
+            else:
+                user_auth = authenticate(username=username, password=password)
 
-            if user is None:
-                raise ValidationError("Usuário ou senha inválidos.")
-            if not user.is_active:
-                raise ValidationError("Usuário inativo, entre em contato com o administrador.")
+                if not user.is_active:
+                    raise forms.ValidationError('Usuário inativo, entre em contato com o administrador.')
 
-            self.user = user
+                if user_auth is None:
+                    raise forms.ValidationError('Senha incorreta para o usuario informado.')
+
+                self.user = user
 
         return cleaned_data
