@@ -11,23 +11,22 @@ def index(request):
     return render(request, 'index.html')
 
 def login(request):
-    if request.user.id is not None:
-        return redirect("dashboard")
     if request.method == "POST":
         form = LoginForm(request.POST)
         if form.is_valid():
             auth_login(request, form.user)
             return redirect("dashboard")
-        context = {'acesso_negado': True}
-        return render(request, 'login.html', {'form':form})
-    return render(request, 'login.html', {'form': LoginForm()})
+    else:
+        form = LoginForm()
+
+    return render(request, "login.html", {"form": form})
 
         
 def logout(request):
     if request.method == "POST":
         auth_logout(request)
         return render(request, 'logout.html')
-    return redirect("inde")
+    return redirect("index")
 
 @login_required
 def dashboard(request):

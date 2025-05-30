@@ -1,42 +1,42 @@
 from django import forms
 from django.contrib.auth import authenticate
-from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.forms import ModelForm
 
-class LoginForm(ModelForm):
-    class Meta:
-        model = User
-        fields = ('username', 'password')
-        labels = {
-            'username': 'Usuario:',
-            'password': 'Senha:',
-        }
-        widgets = {
-            'username': forms.TextInput(attrs={'class': 'form-control',
-                                                   'placeholder': 'Digite seu usuário'}),
-            'password': forms.PasswordInput(attrs={'class': 'form-control',
-                                                   'placeholder':'Digite sua senha'}),
-        }
-        error_messages = {
-            'usuario': {
-                'required': ("Informe o usuario."),
-            },
-        }
+class LoginForm(forms.Form):
+    username = forms.CharField(
+        label="Usuário",
+        widget=forms.TextInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Digite seu usuário",
+            }
+        ),
+        error_messages={"required": "Informe o usuário."},
+    )
+    password = forms.CharField(
+        label="Senha",
+        widget=forms.PasswordInput(
+            attrs={
+                "class": "form-control",
+                "placeholder": "Digite sua senha",
+            }
+        ),
+        error_messages={"required": "Informe a senha."},
+    )
 
     def clean(self):
         cleaned_data = super().clean()
-        username = cleaned_data.get('username')
-        password = cleaned_data.get('password')
+        username = cleaned_data.get("username")
+        password = cleaned_data.get("password")
 
         if username and password:
-            try:
-                user = User.objects.get(username=username)
-            except User.DoesNotExist:
-                raise ValidationError("Usuário não encontrado.")
+            user = authenticate(username=username, password=password)
 
-            user = authenticate(username=user.username, password=password)
             if user is None:
-                raise ValidationError("Senha incorreta para o usuario informado.")
+                raise ValidationError("Usuário ou senha inválidos.")
+            if not user.is_active:
+                raise ValidationError("Usuário inativo, entre em contato com o administrador.")
 
             self.user = user
+
+        return cleaned_data
