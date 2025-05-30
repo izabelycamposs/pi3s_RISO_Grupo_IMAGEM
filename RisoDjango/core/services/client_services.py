@@ -1,4 +1,10 @@
-from .db_connection import get_db
+from .db_connection import MongoDBConnection
+import os
+
+def get_db():
+    db_name = os.environ.get("MONGO_DB_NAME", "riso")
+    mongo = MongoDBConnection(db_name=db_name)
+    return mongo.get_db()
 
 def replace_special_characters(text):
     replacements = {
@@ -43,28 +49,25 @@ def validate_client_data(data):
 
 
 def create_client(data):
-    db = get_db()
     validate_client_data(data)
 
     client = {
-        "nome": data["nome"],
-        "documento": data["documento"],
-        "cep": data["cep"],
-        "email": data["email"],
+        "nome": data.get("nome"),
+        "documento": data.get("documento"),
+        "cep": data.get("cep"),
+        "email": data.get("email"),
         "telefone": data.get("telefone"),
         "telefone_residencial": data.get("telefone_residencial")
     }
 
-    print(db["clients"].insert_one(client))
+    get_db()["clients"].insert_one(client)
     return True
 
 def get_client(document):
-    db = get_db()
-    client = db["clients"].find_one({"documento": document})
+    client = get_db()["clients"].find_one({"documento": document})
     return client if client else None
 
 def update_client(document, new_data):
-    db = get_db()
     update_fields = {}
 
     if not get_client(document):
@@ -81,24 +84,22 @@ def update_client(document, new_data):
     if "telefone_residencial" in new_data:
         update_fields["telefone_residencial"] = new_data["telefone_residencial"]
 
-    result = db["clients"].update_one({"documento": document}, {"$set": update_fields})
-    return result.modified_count > 0
+    result = get_db()["clients"].update_one({"documento": document}, {"$set": update_fields})
+    return True if result.modified_count > 0 else False
 
 def delete_client(document):
-    db = get_db()
-    result = db["clients"].delete_one({"documento": document})
+    result = get_db()["clients"].delete_one({"documento": document})
     return result.deleted_count > 0
 
 def list_clients():
-    db = get_db()
-    clients = db["clients"].find({})
+    clients = get_db()["clients"].find({})
     return list(clients)
 
 def count_clients():
-    db = get_db()
-    return db["clients"].count_documents({})
+    return get_db()["clients"].count_documents({})
 
 def client_exists(document):
-    db = get_db()
-    client = db["clients"].find_one({"documento": document})
-    return client is not None
+    client = get_db()["clients"].find_one({"documento": document})
+    if client:
+        return True
+    return False
