@@ -1,12 +1,16 @@
-from .db_connection import get_db
+from .db_connection import MongoDBConnection
+import os
+
+def get_db():
+    db_name = os.environ.get("MONGO_DB_NAME", "riso")
+    mongo = MongoDBConnection(db_name=db_name)
+    return mongo.get_db()
 
 def service_exists(codigo):
-    db = get_db()
-    service = db["servicos"].find_one({"codigo": codigo})
+    service = get_db()["servicos"].find_one({"codigo": codigo})
     return service is not None
 
 def register_service(service_data):
-    db = get_db()
     
     if not service_exists(service_data.get("codigo")):
         codigo = service_data.get("codigo")
@@ -29,17 +33,15 @@ def register_service(service_data):
             "duracao": duracao
         }
 
-        db["servicos"].insert_one(service)
+        get_db()["servicos"].insert_one(service)
         return True
     return False
 
 def get_service(codigo):
-    db = get_db()
-    service = db["servicos"].find_one({"codigo": codigo})
+    service = get_db()["servicos"].find_one({"codigo": codigo})
     return service if service else None
 
 def update_service(codigo, new_data):
-    db = get_db()
     update_fields = {}
     if not service_exists(codigo):
         return False
@@ -55,36 +57,30 @@ def update_service(codigo, new_data):
         update_fields["quantidadeRodas"] = new_data["quantidadeRodas"]
     if "duracao" in new_data:
         update_fields["duracao"] = new_data["duracao"]
-    result = db["servicos"].update_one({"codigo": codigo}, {"$set": update_fields})
+    result = get_db()["servicos"].update_one({"codigo": codigo}, {"$set": update_fields})
     return result.modified_count > 0
 
 def delete_service(codigo):
-    db = get_db()
-    result = db["servicos"].delete_one({"codigo": codigo})
+    result = get_db()["servicos"].delete_one({"codigo": codigo})
     return result.deleted_count > 0
 
 def show_services():
-    db = get_db()
-    services = db["servicos"].find({})
+    services = get_db()["servicos"].find({})
     return list(services)
 
 def count_services():
-    db = get_db()
-    return db["servicos"].count_documents({})
+    return get_db()["servicos"].count_documents({})
 
 def get_active_services():
-    db = get_db()
-    active_services = db["servicos"].find({"status": "ativo"})
+    active_services = get_db()["servicos"].find({"status": "ativo"})
     return list(active_services)
 
 def get_inactive_services():
-    db = get_db()
-    inactive_services = db["servicos"].find({"status": "inativo"})
+    inactive_services = get_db()["servicos"].find({"status": "inativo"})
     return list(inactive_services)
 
 def get_service_by_type(tipo):
-    db = get_db()
-    service = db["servicos"].find_one({"tipo": tipo})
+    service = get_db()["servicos"].find_one({"tipo": tipo})
     return service if service else None
 
 
